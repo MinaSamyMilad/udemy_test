@@ -7,10 +7,12 @@ import 'package:first/moduls/shop_moduls/register_screen/cubit/states.dart';
 import 'package:first/moduls/social_moduls/social_register_screen/cubit/states.dart';
 import 'package:first/shared/components/constants.dart';
 import 'package:first/shared/network/end_points.dart';
+import 'package:first/shared/network/local/cache_helper.dart';
 import 'package:first/shared/network/remote/dio_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
   SocialRegisterCubit() : super(SocialRegisterInitialState());
@@ -33,6 +35,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
         name: name,
         phone: phone,
       );
+      CacheHelper.saveData(key: 'uId', value: value.user!.uid);
       uId = value.user!.uid;
     }).catchError((error) {
       emit(SocialRegisterErrorState(error.toString()));

@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
 
 import '../../../../shared/components/constants.dart';
+import '../../../../shared/network/local/cache_helper.dart';
 
 class SocialLoginCubit extends Cubit<SocialLoginStates> {
   SocialLoginCubit() : super(SocialLoginInitialState());
@@ -30,7 +31,8 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
        print(value.user!.email);
        print(value.user!.uid);
        uId = value.user!.uid;
-
+  CacheHelper.saveData(key: 'uId', value: value.user!.uid);
+      uId = value.user!.uid;
        emit(SocialLoginSuccessState(value.user!.uid));
      }).catchError((error)
      {

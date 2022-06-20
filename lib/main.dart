@@ -14,6 +14,7 @@ import 'package:first/moduls/mobile.dart';
 import 'package:first/moduls/shop_moduls/shop_login_screen/cubit/cubit.dart';
 import 'package:first/moduls/social_moduls/comment_screen/comment_screen.dart';
 import 'package:first/moduls/social_moduls/social_login_screen/social_login_screen.dart';
+import 'package:first/moduls/social_moduls/social_register_screen/cubit/states.dart';
 import 'package:first/shared/components/components.dart';
 import 'package:first/shared/components/constants.dart';
 import 'package:first/shared/cubit/cubit.dart';
@@ -72,7 +73,7 @@ void main() async {
   // bool isDark = CacheHelper.getData(key: 'isDark');
   // bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   //token = CacheHelper.getData(key: 'token');
-  // uId = CacheHelper.getData(key: 'uId');
+   uId = CacheHelper.getData(key: 'uId');
 
 // if(onBoarding != null){
 
@@ -85,11 +86,11 @@ void main() async {
 //   widget = OnBoardingScreen();
 // }
 
-  // if (uId != null) {
-  //   widget = SocialLayout();
-  // } else {
-  //   widget = SocialLoginScreen();
-  // }
+  if (uId != null) {
+    widget = SocialLayout();
+  } else {
+    widget = SocialLoginScreen();
+  }
 
 // var token = await FirebaseMessaging.instance.getToken();
 // print(token);
@@ -146,18 +147,20 @@ class MyApp extends StatelessWidget {
               darkTheme: DarkTheme,
               themeMode: ThemeMode
                   .light, //AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-              home: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  if (constraints.minWidth.toInt() <= 560)
-                    return MediaQuery(
-                      data: MediaQuery.of(context).copyWith(
-                        textScaleFactor: 0.7
-                      ), 
-                      child: MobileScreen());
+               home: widget
+               //LayoutBuilder(
+              //   builder: (BuildContext context, BoxConstraints constraints) {
+              //     if (constraints.minWidth.toInt() <= 560)
+              //       return MediaQuery(
+              //         data: MediaQuery.of(context).copyWith(
+              //           textScaleFactor: 0.7
+              //         ), 
+              //         child: MobileScreen());
 
-                  return DeskTopScreen();
-                },
-              ));
+              //     return DeskTopScreen();
+              //   },
+              // )
+               );
         },
       ),
     );
